@@ -95,6 +95,70 @@ These variables are used throughout the pipeline to authenticate with CrowdStrik
 
 **Important:** Before running the pipeline, ensure all these values are properly configured according to your environment and that sensitive information (like secrets and API keys) is stored securely using your CI/CD platform's secret management capabilities.
 
+## Override Values Files is Required
+
+Please review the SHRA documentation here <https://github.com/CrowdStrike/falcon-helm/blob/main/helm-charts/falcon-self-hosted-registry-assessment/README.md#create-a-basic-config-file>  
+
+## Example values override files
+
+```yaml
+crowdstrikeConfig:
+  clientID: ""
+  clientSecret: ""
+  
+executor:
+  image:
+    registry: "example-registry.azurecr.io"
+    repository: "falcon-registryassessmentexecutor"
+    tag: "1.3.0"
+    registryConfigJSON: ""
+  dbStorage:
+    create: true
+    size: "10Gi"
+    accessModes:
+      - "ReadWriteOnce"
+    storageClass: "default"
+  assessmentStorage:
+    type: "PVC"
+    create: true
+    storageClass: "default"
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      cpu: 1
+      memory: 1Gi
+jobController:
+  image:
+    registry: "example-registry.azurecr.io"
+    repository: "falcon-jobcontroller"
+    tag: "1.3.0"
+    registryConfigJSON: ""
+  dbStorage:
+    create: true
+    storageClass: "default"
+    size: "100Gi"
+    accessModes:
+      - "ReadWriteOnce"
+  resources:
+      requests:
+        cpu: 100m
+        memory: 128Mi
+      limits:
+        cpu: 1
+        memory: 1Gi
+registryConfigs:
+  - type: acr
+    credentials:
+      username: "registry-user"
+      password: ""
+    allowedRepositories: "nginx,ubuntu,vulnapp,malware-cryptominer-container,python,falcon-container,bkimminich/juice-shop,samples/nginx,ubuntu,teddemo"
+    port: "443"
+    host: "https://example-registry.azurecr.io"
+    cronSchedule: "* * * * *"
+```
+
 Example Variables:
 
 ![alt text](image.png)
