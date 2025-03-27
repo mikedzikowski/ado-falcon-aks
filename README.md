@@ -110,7 +110,7 @@ executor:
   image:
     registry: "example-registry.azurecr.io"
     repository: "falcon-registryassessmentexecutor"
-    tag: "1.3.0"
+    tag: "1.4.0"
     registryConfigJSON: ""
   dbStorage:
     create: true
@@ -133,7 +133,7 @@ jobController:
   image:
     registry: "example-registry.azurecr.io"
     repository: "falcon-jobcontroller"
-    tag: "1.3.0"
+    tag: "1.4.0"
     registryConfigJSON: ""
   dbStorage:
     create: true
